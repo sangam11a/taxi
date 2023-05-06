@@ -33,11 +33,11 @@ class login():
 
 
         txtuser= Entry(width=12,text="Username", font=('Verdana', 12,'bold'))
-        txtuser.insert(0, 'nitesh0hamal@gmail.com')
+
         txtuser.place(x=160, y=110)
 
         txtpass= Entry(width=12, font=('Verdana', 12,'bold'), show='*')
-        txtpass.insert(0, 'someone')
+
         txtpass.place(x=160,y=180)
 
         def logtopage():

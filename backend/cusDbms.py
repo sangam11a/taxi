@@ -7,7 +7,7 @@ def saveCustomer(customerInfo):
 
     sql = """INSERT INTO customer VALUES (%s, %s, %s, %s, %s, %s,%s)"""
     values =(customerInfo.getCus_id(), customerInfo.getCus_name(), customerInfo.getCus_address(),
-            customerInfo.getCus_phone(), customerInfo.getCus_email(), customerInfo.getCus_username(),
+            customerInfo.getCus_email(),customerInfo.getCus_phone(),  customerInfo.getCus_username(),
             customerInfo.getCus_password())
     result=False
     try:

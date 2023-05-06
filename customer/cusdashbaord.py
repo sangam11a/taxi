@@ -86,15 +86,17 @@ class CustmerDashboard123:
         txtbid = Entry()
 
         def requestbycustomer():
-            request1= booking.Booking(booking_id='',pickup_address=pickupaddressfield.get(), dropoff_address=dropfild.get(), pickup_date=pickupdatefield.get(),pickup_time=pickuptimefield.get(), status='Pending',cid=Global.currentuser[0])
-            result = saveBooking(request1)
-            if result == True:
-                messagebox.showinfo("Taxi Booking","Booking Requested Successfully")
-                table1.delete(*table1.get_children())
-                getcustomerdata()
-
+            if (pickupaddressfield.get()=='') or (dropfild.get()=='') or (pickupdatefield.get()=='') or (pickuptimefield.get()==''):
+                messagebox.showerror('TBS', 'Please Fill all The Fields')
             else:
-                messagebox.showerror("Taxi Booking","Error Occurred !!")
+                request1= booking.Booking(booking_id='',pickup_address=pickupaddressfield.get(), dropoff_address=dropfild.get(), pickup_date=pickupdatefield.get(),pickup_time=pickuptimefield.get(), status='Pending',cid=Global.currentuser[0])
+                result = saveBooking(request1)
+                if result == True:
+                    messagebox.showinfo("Taxi Booking","Booking Requested Successfully")
+                    table1.delete(*table1.get_children())
+                    getcustomerdata()
+                else:
+                    messagebox.showerror("Taxi Booking","Error Occurred !!")
 
         btnrequest = Button(side_frame, text="Request Booking", bd=0, font=font, command=requestbycustomer)
         btnrequest.place(x=50, y=370)

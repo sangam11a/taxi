@@ -1,6 +1,9 @@
 from tkinter import *
+from tkinter import messagebox
+
 from PIL import ImageTk, Image
 from backend.cusDbms import saveCustomer
+from backend.validation import namevalidation, numbervalidation, emailvalidation, passwordvalidation
 from frontend import Login
 from middleware.customerlibrary import Customer
 
@@ -54,13 +57,32 @@ class registration():
 
 
         def cusRegistration():
-            reg = Customer(cus_id='', cus_name=txtname.get(), cus_address=txtaddress.get(), cus_email=txtemail.get(), cus_phone=txtphone.get(), cus_username=txtpassword.get(),
-                           cus_password=txtpassword.get())
-            result= saveCustomer(reg)
-            if result== True:
-                print("save")
+            nameResult=namevalidation(txtname.get())
+            if nameResult==True:
+                numberResult=numbervalidation(txtphone.get())
+                if numberResult==True:
+                    emailResult=emailvalidation(txtemail.get())
+                    if emailResult==True:
+                        passwordResult=passwordvalidation(txtpassword.get())
+                        if passwordResult==True:
+                            reg = Customer(cus_id='', cus_name=txtname.get(), cus_address=txtaddress.get(),
+                                            cus_phone=txtphone.get(),cus_email=txtemail.get(), cus_username=txtuser.get(),
+                                           cus_password=txtpassword.get())
+                            result = saveCustomer(reg)
+                            if result == True:
+                                messagebox.showinfo('Taxi Booking', 'Customer Registered Successfully')
+                            else:
+                                messagebox.showerror('Taxi Booking', 'Error Occurred!')
+                        else:
+                            messagebox.showerror('Taxi Booking', 'Invalid password')
+
+                    else:
+                        messagebox.showerror('Taxi Booking', 'Invalid email address')
+                else:
+                    messagebox.showerror('Taxi Booking', 'Invalid Phone Number')
             else:
-                print("error")
+                messagebox.showerror('Taxi Booking','Invalid Name')
+
 
         btnRegister= Button(text='Register',bg="alice blue", font=('Arabic', 12,'bold' ), command=cusRegistration)
         btnRegister.place(x=60, y=370)

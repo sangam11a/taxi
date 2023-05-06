@@ -22,9 +22,6 @@ class DriverDashboard():
         tableframe= Frame(root, bg="ghost white", height=70)
         tableframe.pack(side=TOP, fill=BOTH)
 
-        changepassword_btn = Button(tableframe, text="Change Password", bg="ghost white" ,bd=0,font=('Verdana', 18))
-        changepassword_btn.place(x=900, y=10)
-
         def logout():
             self.root.destroy()
             win=Tk()
@@ -82,16 +79,19 @@ class DriverDashboard():
         dropaddressfield.place(x=300, y=190)
 
         def updatebydriver():
-            result12 = Booking(status='Completed', booking_id=bidtxt.get())
-            updatebookingstatusresult=updatebookingstatus(result12)
-            updatebookingresult = Driver(driver_id=didtxt.get(), status='Active')
-            updatedriverstatusresult=updatedriverstatus(updatebookingresult)
-            if updatebookingstatusresult==True:
-                messagebox.showinfo("Taxi Booking","Trip Completed")
-                treeview.delete(*treeview.get_children())
-                driverbookingtable()
+            if bidtxt.get()=='':
+                messagebox.showerror('TBS','Please Fill The Field')
             else:
-                messagebox.showerror("Taxi Booking","Error Occurred!")
+                result12 = Booking(status='Completed', booking_id=bidtxt.get())
+                updatebookingstatusresult=updatebookingstatus(result12)
+                updatebookingresult = Driver(driver_id=didtxt.get(), status='Active')
+                updatedriverstatusresult=updatedriverstatus(updatebookingresult)
+                if updatebookingstatusresult==True:
+                    messagebox.showinfo("Taxi Booking","Trip Completed")
+                    treeview.delete(*treeview.get_children())
+                    driverbookingtable()
+                else:
+                    messagebox.showerror("Taxi Booking","Error Occurred!")
 
         completebtn = Button(mainframe, text='Complete', bg='alice blue', bd=3, font=('Verdana', 12), command=updatebydriver)
         completebtn.place(x=550, y=170)
@@ -153,7 +153,6 @@ class DriverDashboard():
             pickuptimefield.insert(0, treeview.item(selectitem)['values'][5])
 
         treeview.bind('<<TreeviewSelect>>', getdatafromtable)
-
 
 
 if __name__ == '__main__':

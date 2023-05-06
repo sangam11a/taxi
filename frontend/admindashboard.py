@@ -14,7 +14,7 @@ class AdminDashboard():
     def __init__(self, root):
         self.root = root
         self.root.state('zoomed')
-        self.root.title("Customer Dashboard")
+        self.root.title("Admin Dashboard")
         self.root.config(background="alice blue")
 
         font = ('Times New Roman', 16, 'normal')
